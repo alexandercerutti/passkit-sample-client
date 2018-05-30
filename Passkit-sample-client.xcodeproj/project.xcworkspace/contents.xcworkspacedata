@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:PassRequester.xcodeproj">
+      location = "self:/Users/alexander/Desktop/Passkit-Sample-Client/Passkit-sample-client.xcodeproj">
    </FileRef>
 </Workspace>

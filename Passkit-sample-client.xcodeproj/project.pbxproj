@@ -16,7 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1119F81120A1D97400BE5267 /* PassRequester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PassRequester.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1119F81120A1D97400BE5267 /* Passkit-sample-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Passkit-sample-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1119F81420A1D97400BE5267 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1119F81620A1D97400BE5267 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1119F81920A1D97400BE5267 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -50,7 +50,7 @@
 		1119F81220A1D97400BE5267 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1119F81120A1D97400BE5267 /* PassRequester.app */,
+				1119F81120A1D97400BE5267 /* Passkit-sample-client.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -67,7 +67,8 @@
 				1119F82020A1D97500BE5267 /* Info.plist */,
 				1119F82E20A38DA400BE5267 /* structs.swift */,
 			);
-			path = PassRequester;
+			name = PassRequester;
+			path = "Passkit-sample-client";
 			sourceTree = "<group>";
 		};
 		1119F82B20A2E2D600BE5267 /* Frameworks */ = {
@@ -80,9 +81,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1119F81020A1D97400BE5267 /* PassRequester */ = {
+		1119F81020A1D97400BE5267 /* Passkit-sample-client */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1119F82320A1D97500BE5267 /* Build configuration list for PBXNativeTarget "PassRequester" */;
+			buildConfigurationList = 1119F82320A1D97500BE5267 /* Build configuration list for PBXNativeTarget "Passkit-sample-client" */;
 			buildPhases = (
 				1119F80D20A1D97400BE5267 /* Sources */,
 				1119F80E20A1D97400BE5267 /* Frameworks */,
@@ -92,9 +93,9 @@
 			);
 			dependencies = (
 			);
-			name = PassRequester;
+			name = "Passkit-sample-client";
 			productName = PassRequester;
-			productReference = 1119F81120A1D97400BE5267 /* PassRequester.app */;
+			productReference = 1119F81120A1D97400BE5267 /* Passkit-sample-client.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -117,7 +118,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 1119F80C20A1D97400BE5267 /* Build configuration list for PBXProject "PassRequester" */;
+			buildConfigurationList = 1119F80C20A1D97400BE5267 /* Build configuration list for PBXProject "Passkit-sample-client" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -130,7 +131,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1119F81020A1D97400BE5267 /* PassRequester */,
+				1119F81020A1D97400BE5267 /* Passkit-sample-client */,
 			);
 		};
 /* End PBXProject section */
@@ -334,7 +335,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1119F80C20A1D97400BE5267 /* Build configuration list for PBXProject "PassRequester" */ = {
+		1119F80C20A1D97400BE5267 /* Build configuration list for PBXProject "Passkit-sample-client" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1119F82120A1D97500BE5267 /* Debug */,
@@ -343,7 +344,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1119F82320A1D97500BE5267 /* Build configuration list for PBXNativeTarget "PassRequester" */ = {
+		1119F82320A1D97500BE5267 /* Build configuration list for PBXNativeTarget "Passkit-sample-client" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1119F82420A1D97500BE5267 /* Debug */,
