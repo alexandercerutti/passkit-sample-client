@@ -13,6 +13,7 @@
 		1119F81C20A1D97500BE5267 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1119F81B20A1D97500BE5267 /* Assets.xcassets */; };
 		1119F81F20A1D97500BE5267 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1119F81D20A1D97500BE5267 /* LaunchScreen.storyboard */; };
 		1119F82F20A38DA400BE5267 /* structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1119F82E20A38DA400BE5267 /* structs.swift */; };
+		11CCC47120BEB980001D0319 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1119F82020A1D97500BE5267 /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +42,7 @@
 		1119F80820A1D97400BE5267 = {
 			isa = PBXGroup;
 			children = (
-				1119F81320A1D97400BE5267 /* PassRequester */,
+				1119F81320A1D97400BE5267 /* Passkit-sample-client */,
 				1119F81220A1D97400BE5267 /* Products */,
 				1119F82B20A2E2D600BE5267 /* Frameworks */,
 			);
@@ -55,7 +56,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1119F81320A1D97400BE5267 /* PassRequester */ = {
+		1119F81320A1D97400BE5267 /* Passkit-sample-client */ = {
 			isa = PBXGroup;
 			children = (
 				1119F82A20A2E2D600BE5267 /* PassRequester.entitlements */,
@@ -67,7 +68,6 @@
 				1119F82020A1D97500BE5267 /* Info.plist */,
 				1119F82E20A38DA400BE5267 /* structs.swift */,
 			);
-			name = PassRequester;
 			path = "Passkit-sample-client";
 			sourceTree = "<group>";
 		};
@@ -141,6 +141,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11CCC47120BEB980001D0319 /* Info.plist in Resources */,
 				1119F81F20A1D97500BE5267 /* LaunchScreen.storyboard in Resources */,
 				1119F81C20A1D97500BE5267 /* Assets.xcassets in Resources */,
 				1119F81A20A1D97400BE5267 /* Main.storyboard in Resources */,
@@ -302,12 +303,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F53WB8AE67;
-				INFOPLIST_FILE = PassRequester/Info.plist;
+				INFOPLIST_FILE = "Passkit-sample-client/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.cerutti.PassRequester;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cerutti.Passkit-sample-client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -320,12 +321,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F53WB8AE67;
-				INFOPLIST_FILE = PassRequester/Info.plist;
+				INFOPLIST_FILE = "Passkit-sample-client/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.cerutti.PassRequester;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cerutti.Passkit-sample-client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
