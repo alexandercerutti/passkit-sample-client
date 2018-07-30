@@ -24,6 +24,7 @@ class ViewController: UIViewController {
 		
 		self.passTypePickerView.delegate = self
 		self.passTypePickerView.dataSource = self
+        self.urlField.delegate = self
 		
 		self.selectedPassType = self.passTypes[0]
 	}
@@ -176,6 +177,13 @@ class ViewController: UIViewController {
 			}
 		}.resume()
 	}
+}
+
+extension ViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
 }
 
 extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
