@@ -30,6 +30,12 @@ class ViewController: UIViewController {
 		self.urlField.delegate = self
 
 		self.selectedPassType = self.passTypes[0]
+
+		// for testing:
+		//urlField.text = "192.168.1.254"
+
+		self.fetchBtn.setTitle("Fetch Pass", for: .normal)
+		self.fetchBtn.setTitle("Fetching...", for: .disabled)
 	}
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -93,10 +99,13 @@ class ViewController: UIViewController {
 
 	@IBAction func fireRequest(_ sender: Any) {
 		self.resultArea.isHidden = true
+		self.viewDetailsBtn.isHidden = true
+		self.fetchBtn.isEnabled = false
 
 		guard !(self.urlField.text?.isEmpty)! else {
 			self.resultArea.text = "Insert a Passkit Webserver URL to proceed."
 			self.resultArea.isHidden = false
+			self.fetchBtn.isEnabled = true
 			return
 		}
 
@@ -135,6 +144,7 @@ class ViewController: UIViewController {
 		} catch {
 			self.resultArea.text = "Unable to encode JSON in http body."
 			self.resultArea.isHidden = false
+			self.fetchBtn.isEnabled = true
 			return
 		}
 		
@@ -155,7 +165,7 @@ class ViewController: UIViewController {
 
 						self.resultArea.text = result.error.message
 						self.resultArea.isHidden = false
-						
+						self.fetchBtn.isEnabled = true
 					} catch {
 						let pass = PKPass(data: data!, error: nil)
 						let lib = PKPassLibrary()
@@ -170,16 +180,20 @@ class ViewController: UIViewController {
 							self.resultArea.text = "Library already contains this pass."
 							self.resultArea.isHidden = false
 							return
-						}
-						
-						self.resultArea.text = "Fetching..."
-						self.resultArea.isHidden = false
-
+                        }
 						
 						// I present a PassKitViewController containing the downloaded pass
 						let passvc = PKAddPassesViewController(pass: pass)
 						self.present(passvc, animated: true) {
+							self.passData = pass;
+							if self.fetchBtn.title(for: .normal) == "Fetch Pass" {
+								self.fetchBtn.setTitle("Fetch Pass Again", for: .normal)
+							}
 							self.resultArea.text = "Done!"
+
+							self.fetchBtn.isEnabled = true
+							self.viewDetailsBtn.isHidden = false
+							self.resultArea.isHidden = false
 						}
 					}
 				}
