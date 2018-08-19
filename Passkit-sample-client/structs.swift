@@ -9,8 +9,11 @@
 import Foundation
 
 struct serverMessageError : Decodable {
-	let ecode: Int
 	let status: Bool
+	let error: eMessage
+}
+
+struct eMessage : Decodable {
 	let message: String
 }
 
