@@ -21,11 +21,11 @@ class ViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+
 		self.passTypePickerView.delegate = self
 		self.passTypePickerView.dataSource = self
-        self.urlField.delegate = self
-		
+		self.urlField.delegate = self
+
 		self.selectedPassType = self.passTypes[0]
 	}
 	
@@ -107,8 +107,7 @@ class ViewController: UIViewController {
 		requestURL.allHTTPHeaderFields = [
 			"Content-Type": "application/json"
 		]
-		
-		
+
 		let parameters : wspassParameters = wspassParameters(
 			serialNumber: "AAAA7726372",
 			location: [
@@ -141,16 +140,14 @@ class ViewController: UIViewController {
 
 						let decoder = JSONDecoder()
 						let result = try decoder.decode(serverMessageError.self, from: data!)
-						print(result)
-					
-						self.resultArea.text = result.message
+
+						self.resultArea.text = result.error.message
 						self.resultArea.isHidden = false
 						
 					} catch {
 						let pass = PKPass(data: data!, error: nil)
 						let lib = PKPassLibrary()
-						
-						print("Serial Number: \(pass.serialNumber)")
+
 						guard PKPassLibrary.isPassLibraryAvailable() else {
 							self.resultArea.text = "Pass Library is not available."
 							self.resultArea.isHidden = false
