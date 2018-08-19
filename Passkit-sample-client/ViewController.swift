@@ -12,12 +12,15 @@ import PassKit
 class ViewController: UIViewController {
 
 	let passTypes : [String] = ["eventTicket", "boardingPass", "coupon", "generic", "storeCard"]
+	var passData : PKPass? = nil
 	var selectedPassType : String? = nil
 	
 	@IBOutlet weak var passTypePickerView: UIPickerView!
 	@IBOutlet weak var urlField: UITextField!
 	@IBOutlet weak var connectingLabel: UILabel!
 	@IBOutlet weak var resultArea: UITextView!
+	@IBOutlet weak var viewDetailsBtn: UIButton!
+	@IBOutlet weak var fetchBtn: UIButton!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -28,9 +31,18 @@ class ViewController: UIViewController {
 
 		self.selectedPassType = self.passTypes[0]
 	}
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? DetailsModalVC {
+            vc.passData = self.passData
+        }
+    }
 	
 	// MARK: - Custom Functions
-	
+
+    @IBAction func viewDetails(_ sender: Any) {
+        self.performSegue(withIdentifier: "DetailsModalVC", sender: sender)
+    }
 	/**
 		Checks if the selected string contains http/s protocol by using a regular expression
 	

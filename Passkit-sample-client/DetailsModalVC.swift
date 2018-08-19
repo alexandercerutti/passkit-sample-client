@@ -7,29 +7,73 @@
 //
 
 import UIKit
+import PassKit
 
 class DetailsModalVC: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	@IBOutlet weak var detailList: UITableView!
 
-        // Do any additional setup after loading the view.
-    }
+	let passFields : [[String]] = [
+		["webServiceURL", "authenticationToken"],
+		["serialNumber", "relevantDate", "passType", "localizedName", "localizedDescription"],
+		["organizationName", "passTypeIdentifier", "isRemotePass", "deviceName"]
+	]
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+	let passHeaders : [String] = ["Update Details", "Pass Info", "Generic Info"]
 
-    /*
-    // MARK: - Navigation
+	var passData : PKPass? = nil
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+	override func viewDidLoad() {
+		super.viewDidLoad()
 
+		guard passData != nil else {
+			print("Unable to proceed. Pass Data is nil.")
+			return
+		}
+
+		self.detailList.delegate = self
+		self.detailList.dataSource = self
+	}
+}
+
+extension DetailsModalVC : UITableViewDelegate, UITableViewDataSource {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return self.passFields[section].count
+	}
+	
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		
+		let cell : UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cellModelSubtitle", for: indexPath)
+		
+		let key : String = passFields[indexPath.section][indexPath.row]
+		var dataString : String? = nil
+		
+		if let data = passData?.value(forKey: key) {
+			if data is String {
+//				print("[DEBUG] \(key) is String: \(data as! String)")
+				dataString = data as? String
+			} else if data is URL {
+//				print("[DEBUG] \(key) is URL: \(data as! URL)")
+				dataString = (data as! URL).absoluteString
+			} else if data is UInt && key == "passType" {
+//				print("[DEBUG] \(key) can be converted as UInt")
+				dataString = ["Barcode", "Payment", "Any"][data as! Int]
+			} else if data is Bool {
+				dataString = (data as! Bool).description
+			}
+		}
+		
+		cell.textLabel?.text = key
+		cell.detailTextLabel?.text = dataString ?? "n/a"
+		
+		return cell
+	}
+	
+	func numberOfSections(in tableView: UITableView) -> Int {
+		return 3
+	}
+	
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		return self.passHeaders[section]
+	}
 }
