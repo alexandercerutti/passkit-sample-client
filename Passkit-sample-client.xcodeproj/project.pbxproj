@@ -13,6 +13,7 @@
 		1119F81C20A1D97500BE5267 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1119F81B20A1D97500BE5267 /* Assets.xcassets */; };
 		1119F81F20A1D97500BE5267 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1119F81D20A1D97500BE5267 /* LaunchScreen.storyboard */; };
 		1119F82F20A38DA400BE5267 /* structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1119F82E20A38DA400BE5267 /* structs.swift */; };
+		111A95492129B2C700C63D75 /* DetailsModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111A95482129B2C700C63D75 /* DetailsModalVC.swift */; };
 		11CCC47120BEB980001D0319 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1119F82020A1D97500BE5267 /* Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +27,7 @@
 		1119F82020A1D97500BE5267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1119F82A20A2E2D600BE5267 /* PassRequester.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PassRequester.entitlements; sourceTree = "<group>"; };
 		1119F82E20A38DA400BE5267 /* structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = structs.swift; sourceTree = "<group>"; };
+		111A95482129B2C700C63D75 /* DetailsModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsModalVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				1119F82A20A2E2D600BE5267 /* PassRequester.entitlements */,
 				1119F81420A1D97400BE5267 /* AppDelegate.swift */,
 				1119F81620A1D97400BE5267 /* ViewController.swift */,
+				111A95482129B2C700C63D75 /* DetailsModalVC.swift */,
 				1119F81820A1D97400BE5267 /* Main.storyboard */,
 				1119F81B20A1D97500BE5267 /* Assets.xcassets */,
 				1119F81D20A1D97500BE5267 /* LaunchScreen.storyboard */,
@@ -155,6 +158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				111A95492129B2C700C63D75 /* DetailsModalVC.swift in Sources */,
 				1119F82F20A38DA400BE5267 /* structs.swift in Sources */,
 				1119F81720A1D97400BE5267 /* ViewController.swift in Sources */,
 				1119F81520A1D97400BE5267 /* AppDelegate.swift in Sources */,
