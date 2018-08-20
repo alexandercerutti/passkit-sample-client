@@ -32,7 +32,7 @@ class ViewController: UIViewController {
 		self.selectedPassType = self.passTypes[0]
 
 		// for testing:
-		//urlField.text = "192.168.1.254"
+		//urlField.text = "193.168.1.254"
 
 		self.fetchBtn.setTitle("Fetch Pass", for: .normal)
 		self.fetchBtn.setTitle("Fetching...", for: .disabled)
@@ -151,7 +151,9 @@ class ViewController: UIViewController {
 		session.dataTask(with: requestURL) { (data, res, error) in
 			DispatchQueue.main.async {
 				guard error == nil else {
-					print(error?.localizedDescription)
+					self.resultArea.text = "\(error?.localizedDescription as! String) Check also the inserted URL/IP."
+					self.resultArea.isHidden = false
+					self.fetchBtn.isEnabled = true
 					return
 				}
 
