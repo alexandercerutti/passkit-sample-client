@@ -32,7 +32,7 @@ class ViewController: UIViewController {
 		self.selectedPassType = self.passTypes[0]
 
 		// for testing:
-		//urlField.text = "193.168.1.254"
+		urlField.text = "192.168.1.254"
 
 		self.fetchBtn.setTitle("Fetch Pass", for: .normal)
 		self.fetchBtn.setTitle("Fetching...", for: .disabled)
@@ -49,6 +49,7 @@ class ViewController: UIViewController {
     @IBAction func viewDetails(_ sender: Any) {
         self.performSegue(withIdentifier: "DetailsModalVC", sender: sender)
     }
+
 	/**
 		Checks if the selected string contains http/s protocol by using a regular expression
 	
@@ -175,12 +176,14 @@ class ViewController: UIViewController {
 						guard PKPassLibrary.isPassLibraryAvailable() else {
 							self.resultArea.text = "Pass Library is not available."
 							self.resultArea.isHidden = false
+							self.fetchBtn.isEnabled = true
 							return
 						}
 
 						if (lib.containsPass(pass)) {
 							self.resultArea.text = "Library already contains this pass."
 							self.resultArea.isHidden = false
+							self.fetchBtn.isEnabled = true
 							return
                         }
 						
