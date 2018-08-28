@@ -75,6 +75,27 @@ class ViewController: UIViewController {
 	}
 	
 	/**
+		Checks if in the selected string a port has been selected
+	
+		- Parameters:
+			- string: url-string
+	
+		- returns: the results
+	*/
+	
+	func portCheck(in string: String) -> Bool {
+		let pattern = ":\\d{2,5}"
+		let regex = try! NSRegularExpression(pattern: pattern, options: [])
+		let matches = regex.matches(
+			in: string,
+			options: [],
+			range: NSRange(location: 0, length: Array(string).count)
+		)
+		
+		return matches.count > 0
+	}
+
+	/**
 		Removes all the not-allowed characters from a string
 	
 		- Parameters:
@@ -93,7 +114,7 @@ class ViewController: UIViewController {
 		Prepares the request to the url inside the text area
 	
 		- Parameters:
-			- sender: the trigger element (may be, e.g. the touch event)	
+			- sender: the trigger element (may be, e.g. the touch event)
 	*/
 
 	@IBAction func prepareRequest(_ sender: Any) {
@@ -151,7 +172,13 @@ class ViewController: UIViewController {
 			urlPass += "http://"
 		}
 		
-		urlPass += "\(self.trimSpecialCharacters(in: urlField!.text!)):80/gen/\(passType)"
+		urlPass += "\(self.trimSpecialCharacters(in: urlField!.text!))"
+		
+		if !portCheck(in: urlField!.text!) {
+			urlPass += ":80"
+		}
+		
+		urlPass += "/gen/\(passType)"
 
 		self.connectingLabel.text = "Connecting to \(urlPass)"
 		self.connectingLabel.isHidden = false
