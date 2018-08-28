@@ -11,7 +11,7 @@ import PassKit
 
 class ViewController: UIViewController {
 
-	let passTypes : [String] = ["eventTicket", "boardingPass", "coupon", "generic", "storeCard"]
+	let passTypes : [String] = ["eventTicket", "boardingPass", "coupon", "generic", "storeCard", "custom"]
 	var passData : PKPass? = nil
 	var selectedPassType : String? = nil
 	
@@ -90,18 +90,55 @@ class ViewController: UIViewController {
 	}
 	
 	/**
-		Sends the request to the url inside the text area
+		Prepares the request to the url inside the text area
 	
 		- Parameters:
-			- sender: the trigger element (may be, e.g. the touch event)
-	
-		- returns: The result of operation
+			- sender: the trigger element (may be, e.g. the touch event)	
 	*/
 
-	@IBAction func fireRequest(_ sender: Any) {
+	@IBAction func prepareRequest(_ sender: Any) {
 		self.resultArea.isHidden = true
 		self.viewDetailsBtn.isHidden = true
 		self.fetchBtn.isEnabled = false
+
+		if self.selectedPassType == "custom" {
+			let alertController = UIAlertController(title: "Pass Type", message: "Insert a pass model name to continue", preferredStyle: .alert)
+			
+			let confirm = UIAlertAction(title: "Done", style: .default) { _ in
+				let passType = alertController.textFields?[0].text
+				
+				if passType == nil || (passType?.isEmpty)! {
+					self.present(alertController, animated: true, completion: nil)
+					return
+				}
+				
+				self.connect(passType!);
+			}
+			
+			let cancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in }
+			
+			alertController.addTextField { textField in
+				textField.placeholder = "Enter custom pass name"
+			}
+			
+			alertController.addAction(confirm)
+			alertController.addAction(cancel)
+			
+			self.present(alertController, animated: true, completion: nil)
+		} else {
+			self.connect(self.selectedPassType!)
+		}
+	}
+	
+	/**
+		Fires the request to the url inside the text area
+
+		- Parameters:
+			- passType: the passType to be joined to the urlString
+	*/
+	
+	func connect(_ passType : String) {
+		var urlPass : String = ""
 
 		guard !(self.urlField.text?.isEmpty)! else {
 			self.resultArea.text = "Insert a Passkit Webserver URL to proceed."
@@ -109,14 +146,12 @@ class ViewController: UIViewController {
 			self.fetchBtn.isEnabled = true
 			return
 		}
-
-		var urlPass : String = ""
-
+		
 		if !protocolCheck(in: urlField!.text!) {
 			urlPass += "http://"
 		}
-
-		urlPass += "\(self.trimSpecialCharacters(in: urlField!.text!)):80/gen/\(selectedPassType!)"
+		
+		urlPass += "\(self.trimSpecialCharacters(in: urlField!.text!)):80/gen/\(passType)"
 
 		self.connectingLabel.text = "Connecting to \(urlPass)"
 		self.connectingLabel.isHidden = false
@@ -231,3 +266,4 @@ extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 		self.selectedPassType = self.passTypes[pickerView.selectedRow(inComponent: component)]
 	}
 }
+
