@@ -14,7 +14,6 @@
 		1119F81F20A1D97500BE5267 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1119F81D20A1D97500BE5267 /* LaunchScreen.storyboard */; };
 		1119F82F20A38DA400BE5267 /* structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1119F82E20A38DA400BE5267 /* structs.swift */; };
 		111A95492129B2C700C63D75 /* DetailsModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111A95482129B2C700C63D75 /* DetailsModalVC.swift */; };
-		11CCC47120BEB980001D0319 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1119F82020A1D97500BE5267 /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -144,7 +143,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11CCC47120BEB980001D0319 /* Info.plist in Resources */,
 				1119F81F20A1D97500BE5267 /* LaunchScreen.storyboard in Resources */,
 				1119F81C20A1D97500BE5267 /* Assets.xcassets in Resources */,
 				1119F81A20A1D97400BE5267 /* Main.storyboard in Resources */,
@@ -314,7 +312,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.cerutti.Passkit-sample-client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -332,7 +330,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.cerutti.Passkit-sample-client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -1,29 +1,28 @@
 # Passkit Sample Client
 
 An experimental client to fetch, show and add a Pass to Apple Wallet.
-This experiment is based on a Node.JS project not yet publicly available, which generates Passes following a model along with a webserver.
-It can be virtually used for all the pass generators. 
+This experiment application is based on [passkit-generator](https://github.com/alexandercerutti/passkit-generator), a package made by me to create passes in Node.JS by using a model.
+
+It can be virtually used for all back-end pass generators that returns a string or a JSON structure (to be implemented) as error or a buffer with `application/json` as MIME and have the same Endpoint to return a pass (i.e. `<address>/gen/<selected-pass-type>`).
 
 This application asks for an URL to be inserted and a pass type to be selected from the main *UIPickerView*.
-The request will be done on `<url>/gen/<selected-type>`.
+The request will be done on the following Endpoint: `<url>/gen/<selected-type>`.
 Once retrieved the pass, it will let inspect its properties on another View Controller.
-
-#### Structures
-
-The client comes with two main structures to be respected: error and parameters sending, both managed as JSON Objects.
-
-##### Error
-This is the only important structure that must be returned from a web server in case of error, if you want to use this client.
-```
-{
-	status: Bool,
-    error: {
-    	message: String
-    }
-}
-```
 
 
 #### Screenshots
 
-![Screenshot](img/screen.png)
+<style>
+	.sample-image {
+		width: 300px;
+		border: 1px solid rgba(0, 0, 0, 0.1);
+		border-radius: 5px;
+		display: inline-block;
+		margin-left: 25px
+	}
+</style>
+
+<div>
+	<img src="img/screen.jpg" class="sample-image">
+	<img src="img/details.jpg" class="sample-image">
+</div>

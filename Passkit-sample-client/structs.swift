@@ -1,21 +1,10 @@
-//
 //  structs.swift
-//  PassRequester
+//  Passkit-sample-client
 //
-//  Created by Alexander Cerutti on 09/05/18.
 //  Copyright © 2018 Alexander Cerutti. All rights reserved.
 //
 
 import Foundation
-
-struct serverMessageError : Decodable {
-	let status: Bool
-	let error: eMessage
-}
-
-struct eMessage : Decodable {
-	let message: String
-}
 
 struct wspassParameters : Encodable {
 	let serialNumber: String

@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  PassRequester
+//  Passkit-sample-client
 //
 //  Created by Alexander Cerutti on 08/05/18.
 //  Copyright © 2018 Alexander Cerutti. All rights reserved.
@@ -19,8 +19,18 @@ class ViewController: UIViewController {
 	@IBOutlet weak var urlField: UITextField!
 	@IBOutlet weak var connectingLabel: UILabel!
 	@IBOutlet weak var resultArea: UITextView!
+	@IBOutlet weak var resultAreaView: UIView!
 	@IBOutlet weak var viewDetailsBtn: UIButton!
 	@IBOutlet weak var fetchBtn: UIButton!
+	
+	let errorsDict : [String : String] = [
+		"missingURL": "Insert a Passkit Webserver URL to proceed.",
+		"noConn": "%s. Check also the inserted URL/IP.",
+		"noLib": "Pass Library is not available.",
+		"alreadyAvailable": "Library already contains this pass.",
+		"misBuffer": "Passed data is not a valid buffer",
+		"misJSONEncoding": "Unable to encode JSON in http body."
+	]
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -118,6 +128,7 @@ class ViewController: UIViewController {
 	*/
 
 	@IBAction func prepareRequest(_ sender: Any) {
+		self.resultAreaView.isHidden = true
 		self.resultArea.isHidden = true
 		self.viewDetailsBtn.isHidden = true
 		self.fetchBtn.isEnabled = false
@@ -162,7 +173,8 @@ class ViewController: UIViewController {
 		var urlPass : String = ""
 
 		guard !(self.urlField.text?.isEmpty)! else {
-			self.resultArea.text = "Insert a Passkit Webserver URL to proceed."
+			self.resultArea.text = errorsDict["missingURL"]
+			self.resultAreaView.isHidden = false
 			self.resultArea.isHidden = false
 			self.fetchBtn.isEnabled = true
 			return
@@ -205,7 +217,8 @@ class ViewController: UIViewController {
 			let jsonData = try encoder.encode(parameters)
 			requestURL.httpBody = jsonData
 		} catch {
-			self.resultArea.text = "Unable to encode JSON in http body."
+			self.resultArea.text = self.errorsDict["misJSONEncoding"]
+			self.resultAreaView.isHidden = false
 			self.resultArea.isHidden = false
 			self.fetchBtn.isEnabled = true
 			return
@@ -214,56 +227,66 @@ class ViewController: UIViewController {
 		session.dataTask(with: requestURL) { (data, res, error) in
 			DispatchQueue.main.async {
 				guard error == nil else {
-					self.resultArea.text = "\(error?.localizedDescription as! String) Check also the inserted URL/IP."
+					self.resultArea.text = self.errorsDict["noConn"]?.replacingOccurrences(of: "%s", with: error!.localizedDescription)
 					self.resultArea.isHidden = false
+					self.resultAreaView.isHidden = false
 					self.fetchBtn.isEnabled = true
 					return
 				}
 
-				if data != nil {
+				let contentType = (
+					(res as! HTTPURLResponse).allHeaderFields["Content-Type"] as! String).split(separator: ";")[0]
+
+				if contentType == "application/vnd.apple.pkpass" {
+					// if the response has MIME application/vnd.apple.pkpass, it means that generation should be correct.
+					
 					do {
-						// I check if the retrieved buffer can be parsed as JSON Structure
-						// If decoding fails, .pkpass is returned, error from server otherwise.
-
-						let decoder = JSONDecoder()
-						let result = try decoder.decode(serverMessageError.self, from: data!)
-
-						self.resultArea.text = result.error.message
-						self.resultArea.isHidden = false
-						self.fetchBtn.isEnabled = true
-					} catch {
-						let pass = PKPass(data: data!, error: nil)
-						let lib = PKPassLibrary()
-
+						let pass = try PKPass(data: data!)
+						
 						guard PKPassLibrary.isPassLibraryAvailable() else {
-							self.resultArea.text = "Pass Library is not available."
+							self.resultArea.text = self.errorsDict["noLib"]
+							self.resultArea.isHidden = false
+							self.fetchBtn.isEnabled = true
+							return
+						}
+						
+						if (PKPassLibrary().containsPass(pass)) {
+							self.resultArea.text = self.errorsDict["alreadyAvailable"]
 							self.resultArea.isHidden = false
 							self.fetchBtn.isEnabled = true
 							return
 						}
 
-						if (lib.containsPass(pass)) {
-							self.resultArea.text = "Library already contains this pass."
-							self.resultArea.isHidden = false
-							self.fetchBtn.isEnabled = true
-							return
-                        }
-						
 						// I present a PassKitViewController containing the downloaded pass
-						let passvc = PKAddPassesViewController(pass: pass)
+						let passvc = PKAddPassesViewController(pass: pass)!
 						self.present(passvc, animated: true) {
 							self.passData = pass;
+
 							if self.fetchBtn.title(for: .normal) == "Fetch Pass" {
 								self.fetchBtn.setTitle("Fetch Pass Again", for: .normal)
 							}
-							self.resultArea.text = "Done!"
 
-							self.fetchBtn.isEnabled = true
+							self.resultArea.text = "Done!"
 							self.viewDetailsBtn.isHidden = false
-							self.resultArea.isHidden = false
 						}
+					} catch {
+						self.resultArea.text = self.errorsDict["misBuffer"]
 					}
+				} else if contentType == "application/json" {
+					// To be written if server returns a JSON structure. Requires structs to be added inside structs.swift
+					do {
+						// let result = JSONDecoder().decode(<< decode structure >>, from: data!)
+						// self.resultArea.text = << Your content >>
+					} catch {
+						self.resultArea.text = "Returned JSON error (not parsable at the moment)";
+					}
+				} else {
+					self.resultArea.text = String(data: data!, encoding: .utf8)
 				}
+				
+				self.resultAreaView.isHidden = false
+				self.resultArea.isHidden = false
+				self.fetchBtn.isEnabled = true
 			}
 		}.resume()
 	}
