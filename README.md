@@ -12,17 +12,7 @@ Once retrieved the pass, it will let inspect its properties on another View Cont
 
 #### Screenshots
 
-<style>
-	.sample-image {
-		width: 300px;
-		border: 1px solid rgba(0, 0, 0, 0.1);
-		border-radius: 5px;
-		display: inline-block;
-		margin-left: 25px
-	}
-</style>
-
 <div>
-	<img src="img/screen.jpg" class="sample-image">
-	<img src="img/details.jpg" class="sample-image">
+	<img width="300" src="img/screen.jpg">
+	<img width="300" src="img/details.jpg">
 </div>
