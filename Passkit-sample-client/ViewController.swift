@@ -24,12 +24,12 @@ class ViewController: UIViewController {
 	@IBOutlet weak var fetchBtn: UIButton!
 	
 	let errorsDict : [String : String] = [
-		"missingURL": "Insert a Passkit Webserver URL to proceed.",
-		"noConn": "%s. Check also the inserted URL/IP.",
-		"noLib": "Pass Library is not available.",
-		"alreadyAvailable": "Library already contains this pass.",
+		"missingURL": "Insert a Passkit Webserver URL to proceed",
+		"noConn": "%s. Check also the inserted URL/IP",
+		"noLib": "Pass Library is not available on this device",
+		"alreadyAvailable": "Library already contains this pass",
 		"misBuffer": "Passed data is not a valid buffer",
-		"misJSONEncoding": "Unable to encode JSON in http body."
+		"misJSONEncoding": "Unable to encode JSON in http body"
 	]
 	
 	override func viewDidLoad() {
@@ -42,7 +42,7 @@ class ViewController: UIViewController {
 		self.selectedPassType = self.passTypes[0]
 
 		// for testing:
-		urlField.text = "192.168.1.254"
+		urlField.text = UserDefaults.standard.string(forKey: "lastAddress") ?? ""
 
 		self.fetchBtn.setTitle("Fetch Pass", for: .normal)
 		self.fetchBtn.setTitle("Fetching...", for: .disabled)
@@ -179,17 +179,19 @@ class ViewController: UIViewController {
 			self.fetchBtn.isEnabled = true
 			return
 		}
-		
-		if !protocolCheck(in: urlField!.text!) {
-			urlPass += "http://"
-		}
-		
+
 		urlPass += "\(self.trimSpecialCharacters(in: urlField!.text!))"
-		
+
 		if !portCheck(in: urlField!.text!) {
 			urlPass += ":80"
 		}
+
+		UserDefaults.standard.set(urlPass, forKey: "lastAddress")
 		
+		if !protocolCheck(in: urlField!.text!) {
+			urlPass = "http://\(urlPass)"
+		}
+
 		urlPass += "/gen/\(passType)"
 
 		self.connectingLabel.text = "Connecting to \(urlPass)"
