@@ -14,6 +14,8 @@
 		1119F81F20A1D97500BE5267 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1119F81D20A1D97500BE5267 /* LaunchScreen.storyboard */; };
 		1119F82F20A38DA400BE5267 /* structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1119F82E20A38DA400BE5267 /* structs.swift */; };
 		111A95492129B2C700C63D75 /* DetailsModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111A95482129B2C700C63D75 /* DetailsModalVC.swift */; };
+		1128063C21582CBB00BCF4B1 /* CustomizeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1128063B21582CBB00BCF4B1 /* CustomizeVC.swift */; };
+		11C857252159960E0099FDB9 /* editVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C857242159960E0099FDB9 /* editVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		1119F82A20A2E2D600BE5267 /* PassRequester.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PassRequester.entitlements; sourceTree = "<group>"; };
 		1119F82E20A38DA400BE5267 /* structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = structs.swift; sourceTree = "<group>"; };
 		111A95482129B2C700C63D75 /* DetailsModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsModalVC.swift; sourceTree = "<group>"; };
+		1128063B21582CBB00BCF4B1 /* CustomizeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizeVC.swift; sourceTree = "<group>"; };
+		11C857242159960E0099FDB9 /* editVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +73,8 @@
 				1119F81D20A1D97500BE5267 /* LaunchScreen.storyboard */,
 				1119F82020A1D97500BE5267 /* Info.plist */,
 				1119F82E20A38DA400BE5267 /* structs.swift */,
+				1128063B21582CBB00BCF4B1 /* CustomizeVC.swift */,
+				11C857242159960E0099FDB9 /* editVC.swift */,
 			);
 			path = "Passkit-sample-client";
 			sourceTree = "<group>";
@@ -158,7 +164,9 @@
 			files = (
 				111A95492129B2C700C63D75 /* DetailsModalVC.swift in Sources */,
 				1119F82F20A38DA400BE5267 /* structs.swift in Sources */,
+				11C857252159960E0099FDB9 /* editVC.swift in Sources */,
 				1119F81720A1D97400BE5267 /* ViewController.swift in Sources */,
+				1128063C21582CBB00BCF4B1 /* CustomizeVC.swift in Sources */,
 				1119F81520A1D97400BE5267 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

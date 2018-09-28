@@ -14,6 +14,7 @@ class ViewController: UIViewController {
 	let passTypes : [String] = ["eventTicket", "boardingPass", "coupon", "generic", "storeCard", "custom"]
 	var passData : PKPass? = nil
 	var selectedPassType : String? = nil
+	var overrides : [String: String] = [:]
 	
 	@IBOutlet weak var passTypePickerView: UIPickerView!
 	@IBOutlet weak var urlField: UITextField!
@@ -23,7 +24,7 @@ class ViewController: UIViewController {
 	@IBOutlet weak var viewDetailsBtn: UIButton!
 	@IBOutlet weak var fetchBtn: UIButton!
 	
-	let errorsDict : [String : String] = [
+	let emessage : [String : String] = [
 		"missingURL": "Insert a Passkit Webserver URL to proceed",
 		"noConn": "%s. Check also the inserted URL/IP",
 		"noLib": "Pass Library is not available on this device",
@@ -52,6 +53,11 @@ class ViewController: UIViewController {
         if let vc = segue.destination as? DetailsModalVC {
             vc.passData = self.passData
         }
+		
+		if let vc = segue.destination as? CustomizeVC {
+			vc.delegate = self
+			vc.overrides = overrides
+		}
     }
 	
 	// MARK: - Custom Functions
@@ -59,7 +65,11 @@ class ViewController: UIViewController {
     @IBAction func viewDetails(_ sender: Any) {
         self.performSegue(withIdentifier: "DetailsModalVC", sender: sender)
     }
-
+	
+	@IBAction func CustomizePass(_ sender: Any) {
+		self.performSegue(withIdentifier: "CustomizeSegue", sender: nil)
+	}
+	
 	/**
 		Checks if the selected string contains http/s protocol by using a regular expression
 	
@@ -173,7 +183,7 @@ class ViewController: UIViewController {
 		var urlPass : String = ""
 
 		guard !(self.urlField.text?.isEmpty)! else {
-			self.resultArea.text = errorsDict["missingURL"]
+			self.resultArea.text = emessage["missingURL"]
 			self.resultAreaView.isHidden = false
 			self.resultArea.isHidden = false
 			self.fetchBtn.isEnabled = true
@@ -195,7 +205,7 @@ class ViewController: UIViewController {
 		urlPass += "/gen/\(passType)"
 
 		self.connectingLabel.text = "Connecting to \(urlPass)"
-		self.connectingLabel.isHidden = false
+		self.connectingLabel.alpha = 1
 
 		let urlAddress : URL = URL(string: urlPass)!
 		let session = URLSession.shared
@@ -205,21 +215,13 @@ class ViewController: UIViewController {
 		requestURL.allHTTPHeaderFields = [
 			"Content-Type": "application/json"
 		]
-
-		let parameters : wspassParameters = wspassParameters(
-			serialNumber: "AAAA7726372",
-			location: [
-				wspassLocation(long: 5.0, lat: 10.5),
-				wspassLocation(long: 3322.14, lat: 25.3)
-			]
-		)
 		
 		do {
 			let encoder = JSONEncoder()
-			let jsonData = try encoder.encode(parameters)
+			let jsonData = try encoder.encode(overrides)
 			requestURL.httpBody = jsonData
 		} catch {
-			self.resultArea.text = self.errorsDict["misJSONEncoding"]
+			self.resultArea.text = self.emessage["misJSONEncoding"]
 			self.resultAreaView.isHidden = false
 			self.resultArea.isHidden = false
 			self.fetchBtn.isEnabled = true
@@ -229,7 +231,7 @@ class ViewController: UIViewController {
 		session.dataTask(with: requestURL) { (data, res, error) in
 			DispatchQueue.main.async {
 				guard error == nil else {
-					self.resultArea.text = self.errorsDict["noConn"]?.replacingOccurrences(of: "%s", with: error!.localizedDescription)
+					self.resultArea.text = self.emessage["noConn"]?.replacingOccurrences(of: "%s", with: error!.localizedDescription)
 					self.resultArea.isHidden = false
 					self.resultAreaView.isHidden = false
 					self.fetchBtn.isEnabled = true
@@ -246,15 +248,16 @@ class ViewController: UIViewController {
 						let pass = try PKPass(data: data!)
 						
 						guard PKPassLibrary.isPassLibraryAvailable() else {
-							self.resultArea.text = self.errorsDict["noLib"]
+							self.resultArea.text = self.emessage["noLib"]
 							self.resultArea.isHidden = false
 							self.fetchBtn.isEnabled = true
 							return
 						}
 						
 						if (PKPassLibrary().containsPass(pass)) {
-							self.resultArea.text = self.errorsDict["alreadyAvailable"]
+							self.resultArea.text = self.emessage["alreadyAvailable"]
 							self.resultArea.isHidden = false
+							self.resultAreaView.isHidden = false
 							self.fetchBtn.isEnabled = true
 							return
 						}
@@ -264,15 +267,11 @@ class ViewController: UIViewController {
 						self.present(passvc, animated: true) {
 							self.passData = pass;
 
-							if self.fetchBtn.title(for: .normal) == "Fetch Pass" {
-								self.fetchBtn.setTitle("Fetch Pass Again", for: .normal)
-							}
-
 							self.resultArea.text = "Done!"
 							self.viewDetailsBtn.isHidden = false
 						}
 					} catch {
-						self.resultArea.text = self.errorsDict["misBuffer"]
+						self.resultArea.text = self.emessage["misBuffer"]
 					}
 				} else if contentType == "application/json" {
 					// To be written if server returns a JSON structure. Requires structs to be added inside structs.swift
@@ -300,6 +299,13 @@ extension ViewController: UITextFieldDelegate {
         return false
     }
 }
+
+extension ViewController: OptionsProto {
+	func confirmEdits(_ overrides: [String : String]) {
+		self.overrides = overrides
+	}
+}
+
 
 extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 	func numberOfComponents(in pickerView: UIPickerView) -> Int {

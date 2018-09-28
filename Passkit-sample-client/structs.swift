@@ -6,10 +6,20 @@
 
 import Foundation
 
-struct wspassParameters : Encodable {
-	let serialNumber: String
-	let location: [wspassLocation]?
-}
+
+//struct wspassParameters : Encodable {
+//	let serialNumber: String? = "00000-11111111-2222222-333-444-6"
+//	let userInfo: String? = nil
+//	let webServiceURL: String? = nil
+//	let backgroundColor: String? = nil
+//	let foregroundColor: String? = nil
+//	let labelColor: String? = nil
+//	let groupingIdentifier: String? = nil
+//	
+//	subscript(name: String) {
+//		
+//	}
+//}
 
 struct wspassLocation : Encodable {
 	let longitude: Double
@@ -26,13 +36,6 @@ struct wspassLocation : Encodable {
 		self.longitude = longitude
 		self.latitude = latitude
 		self.altitude = altitude
-	}
-	
-	init(long longitude: Double, lat latitude: Double, altitude: Double, relevantText: String) {
-		self.longitude = longitude
-		self.latitude = latitude
-		self.altitude = altitude
-		self.relevantText = relevantText
 	}
 }
 
